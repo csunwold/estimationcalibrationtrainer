@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.fermi.calibration</groupId>
+    <artifactId>estimation-calibration-trainer</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>domain</module>
+        <module>cli</module>
+    </modules>
+
+    <properties>
+        <scala.major.version>2.13</scala.major.version>
+        <scala.minor.version>1</scala.minor.version>
+    </properties>
+    <repositories>
+        <repository>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </repository>
+        <repository>
+            <id>oss.sonatype.org</id>
+            <name>oss.sonatype.org</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.major.version}.${scala.minor.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*Spec.class</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <args>
+                        <arg>-deprecation</arg>, // Emit warning and location for usages of deprecated APIs.
+                        <arg>-explaintypes</arg>, // Explain type errors in more detail.
+                        <arg>-feature</arg> // Emit warning and location for usages of features that should be imported explicitly.
+                        <arg>-language:existentials</arg> // Existential types (besides wildcard types) can be written and inferred
+                        <arg>-language:experimental.macros</arg> // Allow macro definition (besides implementation and application)
+                        <arg>-language:higherKinds</arg> // Allow higher-kinded types
+                        <arg>-language:implicitConversions</arg> // Allow definition of implicit functions called views
+                        <arg>-unchecked</arg> // Enable additional warnings where generated code depends on assumptions.
+                        <arg>-Xcheckinit</arg> // Wrap field accessors to throw an exception on uninitialized access.
+                        <arg>-Xfatal-warnings</arg> // Fail the compilation if there are any warnings.
+                        <arg>-Xlint:adapted-args</arg> // Warn if an argument list is modified to match the receiver.
+                        <arg>-Xlint:constant</arg> // Evaluation of a constant arithmetic expression results in an error.
+                        <arg>-Xlint:delayedinit-select</arg> // Selecting member of DelayedInit.
+                        <arg>-Xlint:doc-detached</arg> // A Scaladoc comment appears to be detached from its element.
+                        <arg>-Xlint:inaccessible</arg> // Warn about inaccessible types in method signatures.
+                        <arg>-Xlint:infer-any</arg> // Warn when a type argument is inferred to be `Any`.
+                        <arg>-Xlint:missing-interpolator</arg> // A string literal appears to be missing an interpolator id.
+                        <arg>-Xlint:nullary-override</arg> // Warn when non-nullary `def f()' overrides nullary `def f'.
+                        <arg>-Xlint:nullary-unit</arg> // Warn when nullary methods return Unit.
+                        <arg>-Xlint:option-implicit</arg> // Option.apply used implicit view.
+                        <arg>-Xlint:package-object-classes</arg> // Class or object defined in package object.
+                        <arg>-Xlint:poly-implicit-overload</arg> // Parameterized overloaded implicit methods are not visible as view bounds.
+                        <arg>-Xlint:private-shadow</arg> // A private field (or class parameter) shadows a superclass field.
+                        <arg>-Xlint:stars-align</arg> // Pattern sequence wildcard must align with sequence component.
+                        <arg>-Xlint:type-parameter-shadow</arg> // A local type parameter shadows a type already in scope.
+                        <arg>-Ywarn-dead-code</arg> // Warn when dead code is identified.
+                        <arg>-Ywarn-extra-implicit</arg> // Warn when more than one implicit parameter section is defined.
+                        <arg>-Ywarn-numeric-widen</arg> // Warn when numerics are widened.
+                        <arg>-Ywarn-unused:implicits</arg> // Warn if an implicit parameter is unused.
+                        <arg>-Ywarn-unused:imports</arg> // Warn if an import selector is not referenced.
+                        <arg>-Ywarn-unused:locals</arg> // Warn if a local definition is unused.
+                        <arg>-Ywarn-unused:params</arg> // Warn if a value parameter is unused.
+                        <arg>-Ywarn-unused:patvars</arg> // Warn if a variable bound in a pattern is unused.
+                        <arg>-Ywarn-unused:privates</arg> // Warn if a private member is unused.
+                        <arg>-Ywarn-value-discard</arg> // Warn when non-Unit expression results are unused.
+                        <arg>-Ybackend-parallelism</arg>, // Enable paralellisation — change to desired number!
+                        <arg>4</arg>
+                        <arg>-Ycache-plugin-class-loader:last-modified</arg> // Enables caching of classloaders for compiler plugins
+                        <arg>-Ycache-macro-class-loader:last-modified</arg> // and macro definitions. This can lead to performance improvements.
+                    </args>
+                    <recompileMode>incremental</recompileMode>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
