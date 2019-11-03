@@ -16,7 +16,7 @@ class InMemoryQuizRepository extends QuizRepository[NinetyPercentConfidenceInter
   private val questionBank = new mutable.HashMap[NinetyPercentConfidenceIntervalRangeQuestion, mutable.Set[User]].empty
   private val targetNumberOfQuestions = 10
 
-  def addQuestions(questions: Seq[NinetyPercentConfidenceIntervalRangeQuestion]): Unit = {
+  def addQuestions(questions: Iterator[NinetyPercentConfidenceIntervalRangeQuestion]): Unit = {
     questions
       // We only want to add new questions that aren't already in the question bank
       // Otherwise we risk wiping out which user has seen this before.
