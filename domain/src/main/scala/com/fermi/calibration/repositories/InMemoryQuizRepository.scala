@@ -13,7 +13,7 @@ import scala.util.Random
  * This class is not thread safe.
  */
 class InMemoryQuizRepository extends QuizRepository[NinetyPercentConfidenceIntervalRangeAnswer, NinetyPercentConfidenceIntervalRangeQuestion] {
-  private val questionBank = new mutable.HashMap[NinetyPercentConfidenceIntervalRangeQuestion, Set[User]].empty
+  private val questionBank = new mutable.HashMap[NinetyPercentConfidenceIntervalRangeQuestion, mutable.Set[User]].empty
   private val targetNumberOfQuestions = 10
 
   def addQuestions(questions: Seq[NinetyPercentConfidenceIntervalRangeQuestion]): Unit = {
@@ -21,7 +21,7 @@ class InMemoryQuizRepository extends QuizRepository[NinetyPercentConfidenceInter
       // We only want to add new questions that aren't already in the question bank
       // Otherwise we risk wiping out which user has seen this before.
       .filterNot(q => questionBank.contains(q))
-      .foreach(q => questionBank.put(q, Set.empty))
+      .foreach(q => questionBank.put(q, mutable.Set.empty))
   }
   /**
    * Builds a quiz based on Ninety percent confidence interval questions. Ensures that only questions are given to the
@@ -43,6 +43,7 @@ class InMemoryQuizRepository extends QuizRepository[NinetyPercentConfidenceInter
       var remainingQuestions = unseenQuestions.keys.toIndexedSeq
       val selectedQuestions = for {_ <- Range(0, 10)} yield {
         val selectedQuestion = remainingQuestions(Math.abs(Random.nextInt()) % remainingQuestions.size)
+        questionBank(selectedQuestion).add(user)
         remainingQuestions = remainingQuestions.filterNot(q => q == selectedQuestion)
         selectedQuestion
       }
