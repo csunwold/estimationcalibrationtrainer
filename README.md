@@ -1,6 +1,8 @@
 # Estimation Calibration Trainer
 An application that helps calibrate you as an estimator. 
 
+[![CircleCI](https://circleci.com/gh/csunwold/estimationcalibrationtrainer/tree/master.svg?style=svg)](https://circleci.com/gh/csunwold/estimationcalibrationtrainer/tree/master)
+
 ## Dependencies
 * Maven
 * Scala 2.13
