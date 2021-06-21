@@ -5,7 +5,7 @@ package com.fermi.calibration.models
  * @param text            The text of the question
  * @param correctAnswer   The exact correct answer to the question
  */
-case class NinetyPercentConfidenceIntervalRangeQuestion(text: String, correctAnswer: Int) extends Question[NinetyPercentConfidenceIntervalRangeAnswer] {
+case class NinetyPercentConfidenceIntervalRangeQuestion(text: String, correctAnswer: Double) extends Question[NinetyPercentConfidenceIntervalRangeAnswer] {
   def isCorrect(answer: NinetyPercentConfidenceIntervalRangeAnswer): Boolean =
     answer.high >= correctAnswer && answer.low <= correctAnswer
 }
@@ -17,4 +17,4 @@ case class NinetyPercentConfidenceIntervalRangeQuestion(text: String, correctAns
  * @param high The high end estimate. This number represents the belief that there is a less than 5% change the correct
  *             answer is above this value.
  */
-case class NinetyPercentConfidenceIntervalRangeAnswer(low: Int, high: Int) extends Answer
+case class NinetyPercentConfidenceIntervalRangeAnswer(low: Double, high: Double) extends Answer

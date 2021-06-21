@@ -46,7 +46,7 @@ object Main extends App {
 
     val questions = Source.fromResource("confidence_interval_questions.csv").getLines.map(str => {
       val split = str.split(',')
-      NinetyPercentConfidenceIntervalRangeQuestion(split(0), split(1).toInt)
+      NinetyPercentConfidenceIntervalRangeQuestion(split(0), split(1).trim().toDouble)
     })
 
     repo.addQuestions(questions)
@@ -55,7 +55,7 @@ object Main extends App {
   }
 
   def giveQuiz(quiz: Quiz[NinetyPercentConfidenceIntervalRangeAnswer, NinetyPercentConfidenceIntervalRangeQuestion]): Unit = {
-    def isInt(s: String): Boolean = Try({s.toInt}).isSuccess
+    def isDouble(s: String): Boolean = Try({s.toDouble}).isSuccess
 
     val rawQuestionsAndAnswers = for (q <- quiz.questions) yield {
       println(q.text)
@@ -66,8 +66,8 @@ object Main extends App {
         // If we didn't, we need to do the best we can with it
         if (split.isEmpty || split.size == 1) {
           None
-        } else if (isInt(split(0)) && isInt(split(1))) {
-          Some((split(0).toInt, split(1).toInt))
+        } else if (isDouble(split(0)) && isDouble(split(1))) {
+          Some((split(0).toDouble, split(1).toDouble))
         } else {
           None
         }
